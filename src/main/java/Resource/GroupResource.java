@@ -12,13 +12,12 @@ import javax.ws.rs.Produces;
 import Objects.Group;
 import Objects.LoanGroup;
 import Services.GroupService;
-import Services.GroupServiceProvider;
 import Services.LoanGroupService;
-import Services.LoanGroupServiceProvider;
+import Services.ServiceProvider;
 
 @Path("/group")
 public class GroupResource {
-	private GroupService service = GroupServiceProvider.getGroupService();
+	private GroupService service = ServiceProvider.getGroupService();
 	
 	private JsonObjectBuilder buildJSON(Group g){
 		JsonObjectBuilder job =Json.createObjectBuilder();

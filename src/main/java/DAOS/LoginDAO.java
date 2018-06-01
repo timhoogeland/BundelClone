@@ -11,9 +11,12 @@ import java.util.Map;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.DatatypeConverter;
 
 import Objects.Login;
+import Resource.AuthenticationResource;
 
 public class LoginDAO extends baseDAO {
 	public Map<String, String> login(String username, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -24,6 +27,7 @@ public class LoginDAO extends baseDAO {
 		String database_status = null;
 		String database_usertype = null;
 
+		AuthenticationResource AR = new AuthenticationResource();
 		String query = "select userid, password, salt, status, usertype from public.user where username = ?";
 		
 		try (Connection con = super.getConnection()) {
@@ -53,9 +57,15 @@ public class LoginDAO extends baseDAO {
 	        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
 	        byte[] hash = skf.generateSecret(spec).getEncoded();
 	        String client_password = toHex(hash);
+	        
+	        Response test = AR.authenticateUser(username, database_password);
+	        Object t = test.getEntity();
+	        String testString = t.toString();
+
 
 	        if(client_password.equals(database_password)) {
 	        	userdata.put("userid", database_userid);
+	        	userdata.put("session", testString);
 	        	userdata.put("usertype", database_usertype);
 	        	userdata.put("status", database_status);
 	        }

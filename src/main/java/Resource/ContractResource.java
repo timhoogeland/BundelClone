@@ -14,12 +14,14 @@ import javax.ws.rs.core.Response;
 
 import Objects.Contract;
 import Objects.User;
+import PdfGenerator.GeneratePage;
 import Services.ServiceProvider;
 import Services.ContractService;
-import Services.ContractServiceProvider;
+
 
 @Path("/contract")
 public class ContractResource {
+	
 	    private ContractService service = ServiceProvider.getContractService();
 
 	    private JsonObjectBuilder buildJSON(Contract c) {
@@ -37,7 +39,7 @@ public class ContractResource {
 //	    @RolesAllowed({"beheerder","admin"})
 	    @Produces("application/json")
 	    public String getAccounts() {
-	        JsonArrayBuilder jab = Json.createArrayBuilder();
+	    	JsonArrayBuilder jab = Json.createArrayBuilder();
 
 	        for (Contract c : service.getAllContracts()) {
 	            jab.add(buildJSON(c));
@@ -84,7 +86,7 @@ public class ContractResource {
 	                             @FormParam("userid") int userId
 	                             )
 	    {
-	    	ContractService service = ContractServiceProvider.getContractService();
+	    	ContractService service = ServiceProvider.getContractService();
 	    	
 	        Contract newContract = new Contract(contractId, status, desc, pdf, userId);
 	        if (service.newContract(newContract)){

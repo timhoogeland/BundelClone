@@ -1,9 +1,12 @@
 package Resource;
 
+import java.util.Random;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,6 +17,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import Objects.Adress;
+import Objects.Contract;
+import Objects.User;
+import PdfGenerator.RetrieveData;
 import Services.AddressService;
 import Services.ServiceProvider;
 
@@ -71,10 +77,13 @@ public class AddressResource {
 	                               @FormParam("postalcode") String postalcode,
 	                               @FormParam("description") String description,
 	                               @FormParam("location") String location){
+
+	    	RetrieveData data = new RetrieveData();	        
 	    	
-	        Adress newAdress = new Adress(0, street, number, country, postalcode, description, location);
+	        Adress newAdress = new Adress(street, number, country, postalcode, description, location);
 	        Adress returnAdress = service.newAddress(newAdress);
 	        if (returnAdress != null) {
+	        	data.setAdresData(newAdress);
 	            String a = buildJSON(returnAdress).build().toString();
 	            return Response.ok(a).build();
 	        } else {
@@ -101,5 +110,17 @@ public class AddressResource {
 	        } else {
 	            return Response.status(Response.Status.BAD_REQUEST).build();
 	        }
+	    }
+	    
+	    @DELETE
+	    @Produces("application/json")
+	    @Path("/{id}")
+	    public Response deleteAddress(	@PathParam("id") int addressId){
+	    
+	    	if (service.deleteAdress(addressId)){
+	    		return Response.ok().build();
+	    	} else {
+	    		return Response.status(Response.Status.BAD_REQUEST).build();
+	    	}
 	    }
 }

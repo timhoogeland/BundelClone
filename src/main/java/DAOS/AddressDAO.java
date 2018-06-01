@@ -63,7 +63,7 @@ public class AddressDAO extends baseDAO {
     
     public Adress newAddress(Adress address) {
         String query = "INSERT INTO " + tablename + " (street, number, country, postalcode, description, location) VALUES (?,?,?,?,?,?) RETURNING addressid";
-
+        int result;
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
             
@@ -76,7 +76,10 @@ public class AddressDAO extends baseDAO {
 
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {
-                return findById(dbResultSet.getInt("addressid"));
+            	
+                result =  dbResultSet.getInt("addressid");
+                address.setAdressId(result);
+                
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -114,7 +117,7 @@ public class AddressDAO extends baseDAO {
         boolean result = false;
 
         if (findById(addressId) != null) {
-            String query = "DELETE FROM " + tablename + " WHERE userid = ?";
+            String query = "DELETE FROM " + tablename + " WHERE addressid = ?";
 
             try (Connection con = getConnection()) {
                 PreparedStatement pstmt = con.prepareStatement(query);

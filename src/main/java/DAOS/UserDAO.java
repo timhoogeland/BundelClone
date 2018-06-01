@@ -120,6 +120,7 @@ public class UserDAO extends baseDAO {
 
     public User save(User user) {
         String query = "INSERT INTO " + tablename + "(usertype, firstname, lastname, phonenumber, password, salt, status, dateofbirth, photo, addressidfk, username) VALUES (?,?,?,?,?,?,?,?,?,?,?) RETURNING userid";
+        int result;
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
             
@@ -137,7 +138,9 @@ public class UserDAO extends baseDAO {
 
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {
-                return findById(dbResultSet.getInt(1));
+
+               result =  dbResultSet.getInt("userid");
+               user.setUserId(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -147,8 +150,9 @@ public class UserDAO extends baseDAO {
     }
     
     public String findRoleForNameAndPassword(String name, String password){
-    	String role = null;
-    	String query = "SELECT rol FROM " + tablename + " WHERE name = ? AND password = ?";
+    	String role = null;    	
+    	String query = "SELECT usertype FROM "+tablename+" WHERE username = ? AND password = ?";
+    	System.out.println(query);
     	
     	try(Connection con = super.getConnection()){
     		PreparedStatement pstmt = con.prepareStatement(query);
@@ -157,7 +161,8 @@ public class UserDAO extends baseDAO {
     		ResultSet rs = pstmt.executeQuery();
     		
     		if(rs.next()){
-    			role = rs.getString("rol");
+    			role = rs.getString("usertype");
+    			System.out.println(role);
     		}
     	} catch (SQLException sqle){
     		sqle.printStackTrace();

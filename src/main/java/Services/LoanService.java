@@ -12,6 +12,10 @@ public class LoanService {
 		return Loan.getLoanById(LoanId);
 	}
 	
+	public Loan findById(int loanId) {
+		return Loan.findByID(loanId);
+	}
+	
 	public boolean newLoan(Loan newLoan){
 		return Loan.newLoan(newLoan);
 	}
@@ -20,7 +24,7 @@ public class LoanService {
 		return Loan.getAllLoans();
 	}
 	
-	public boolean updateLoan(Loan loan){
+	public Loan updateLoan(Loan loan){
 		return Loan.updateLoan(loan);
 	}
 }

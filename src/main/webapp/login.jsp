@@ -13,7 +13,7 @@
       </div>
       
       <div class="block">
-	    <form name = "loginform" action="javascript:validateLogin();"  class = "form">
+	    <form id = "loginform" name = "loginform" action="javascript:validateLogin();"  class = "form">
 		  <ul class="flex-outer">
 			  <li>	
 			  	<label for="uname"><b>Username</b></label>

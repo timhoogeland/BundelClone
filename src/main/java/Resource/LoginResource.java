@@ -23,7 +23,6 @@ import javax.ws.rs.core.Response;
 import DAOS.LoginDAO;
 import Objects.Login;
 import Services.LoginService;
-import Services.LoginServiceProvider;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
@@ -50,6 +49,7 @@ public class LoginResource {
 		} else {
 			job.add("userid", userdata.get("userid"));
 			job.add("usertype", userdata.get("usertype"));
+			job.add("session", userdata.get("session"));
 		}
 		
 		jab.add(job);

@@ -20,6 +20,14 @@ public class Adress {
 		this.setLocation(location);
 	}
 	
+	public Adress(String street, int number, String country, String postalCode, String description, String location) {
+		this.setStreet(street);
+		this.setNumber(number);
+		this.country = country;
+		this.setPostalCode(postalCode);
+		this.setDescription(description);
+		this.setLocation(location);
+	}
 	
 	public String getDescription() {
 		return description;

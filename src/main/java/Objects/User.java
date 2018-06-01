@@ -32,6 +32,22 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 		this.setUserName(userName);
 	}
+	
+	public User(String userType, String firstName, String lastName, int phonenumber, String password, String salt, String status,
+			int adresIDFK, String photo, Date dateOfBirth, String userName) {
+
+		this.userType = userType;
+		this.firstName = firstName;
+		this.lastname = lastName;
+		this.phonenumber = phonenumber;
+		this.password = password;
+		this.salt = salt;
+		this.setStatus(status);
+		this.addressIdFk = adresIDFK;
+		this.setPhoto(photo);
+		this.dateOfBirth = dateOfBirth;
+		this.setUserName(userName);
+	}
 
 	public int getUserId() {
 		return userId;
