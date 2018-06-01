@@ -61,7 +61,7 @@ function validateLogin() {
 		var logRequest;
 		try {
 			logRequest = new XMLHttpRequest();
-			logRequest.open('GET', "/bundlePWABackend/restservices/login", true);
+			logRequest.open('GET', "/restservices/login", true);
 			logRequest.setRequestHeader("username", username);
 			logRequest.setRequestHeader("password", pass);
 			logRequest.send(null);
