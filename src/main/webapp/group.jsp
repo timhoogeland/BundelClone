@@ -57,7 +57,7 @@
 <script>
 function getGroup() {
   var hr = new XMLHttpRequest();
-  hr.open("GET", "/bundlePWABackend/restservices/loangroup/"+1, true);
+  hr.open("GET", "/restservices/loangroup/"+1, true);
 
   hr.onreadystatechange = function() {
     if (hr.readyState == 4 && hr.status == 200) {
@@ -97,7 +97,7 @@ function getGroup() {
 function createCode(id,name,amount,paidamount,duration,status,loanid){
 
 $.ajax({
-            url : "/bundlePWABackend/restservices/user/"+id
+            url : "/restservices/user/"+id
           ,
             type : "get",
 

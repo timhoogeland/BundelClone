@@ -141,7 +141,7 @@
 <script>
 function getLoans() {
 	var hr = new XMLHttpRequest();
-	hr.open("GET", "/bundlePWABackend/restservices/loan", true);
+	hr.open("GET", "/restservices/loan", true);
 
 	hr.onreadystatechange = function() {
 		if (hr.readyState == 4 && hr.status == 200) {
@@ -177,7 +177,7 @@ function getLoans() {
 function loadLoanDetails() {
 	var hr = new XMLHttpRequest();
 
-	hr.open("GET", "/bundlePWABackend/restservices/loan/"
+	hr.open("GET", "/restservices/loan/"
 			+ getParameterByName('id'), true);
 
 	hr.onreadystatechange = function() {
@@ -194,7 +194,7 @@ function loadLoanDetails() {
 			$('#closingdate').text(data[0].closingdate);
 
 			var hr2 = new XMLHttpRequest();
-			hr2.open("GET", "/bundlePWABackend/restservices/contract/"
+			hr2.open("GET", "/restservices/contract/"
 					+ data[0].contractid, true);
 
 			hr2.onreadystatechange = function() {
@@ -202,7 +202,7 @@ function loadLoanDetails() {
 					var data = JSON.parse(hr2.responseText);
 
 					var hr3 = new XMLHttpRequest();
-					hr3.open("GET", "/bundlePWABackend/restservices/user/"
+					hr3.open("GET", "/restservices/user/"
 							+ data[0].useridfk, true);
 
 					hr3.onreadystatechange = function() {
@@ -219,7 +219,7 @@ function loadLoanDetails() {
 
 							var hr4 = new XMLHttpRequest();
 							hr4.open("GET",
-									"/bundlePWABackend/restservices/adress/"
+									"/restservices/adress/"
 											+ data[0].adresIDFK, true);
 
 							hr4.onreadystatechange = function() {

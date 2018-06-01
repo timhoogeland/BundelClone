@@ -52,7 +52,7 @@
 			var hr = new XMLHttpRequest();
 			var loanofficerid = getCookie("userid");
 			hr.open("GET",
-					"/bundlePWABackend/restservices/loangroup/loanofficer/"
+					"/restservices/loangroup/loanofficer/"
 							+ loanofficerid, true);
 
 			hr.onreadystatechange = function() {
@@ -72,7 +72,7 @@
 						for (var y = 0; y < innerlength; y++) {
 							totalAmount += data[i].groupinformation[y].amount;
 							totalPaid += data[i].groupinformation[y].paidamount;
-							
+
 							groupdiv += [
 									'<div> <label for="name"> <b>',
 									data[i].groupinformation[y].firstname + " " + data[i].groupinformation[y].lastname,
